@@ -5,51 +5,112 @@ const employeesArray = [];
 
 // Collect employee data
 const collectEmployees = function() {
-  // TODO: Get user input to create and return an array of employee objects
-  debugger;
-  employeesArray.push(['Trent', 'Burr', 50000]);
-  employeesArray.push(['Kylie', 'Herrmann', 85000]);
-  employeesArray.push(['Lindsi', 'Amussen', 64000]);
-
+  let response = '';
+  let firstName = '<FN_Blank>';
+  let lastName = '<LN_Blank>';
+  let salary = 0;
+  let cancelPressed = false;
+  let isValidInfo = true;
+  let addMoreEmployees = true;
+  // Get the Employee's First Name from the user
+  do {
+    do {
+      salary = 0;
+      isValidInfo = true;
+      response = window.prompt("What is the First Name of the Employee?");
+      if (response === '') {
+        isValidInfo = false;
+        response = window.alert("The string you entered is NOT valid.  Please try again.");
+      }
+      else if (response === null) {
+        cancelPressed = true;
+        window.alert(`Employee will be entered as ${firstName} ${lastName} with a $${salary} annual salary.`);
+      }
+      else {
+        firstName = response;
+      } 
+      if (cancelPressed)
+        break;
+    }
+    while (!isValidInfo)
+    // Get the Employee's Last Name from the user
+    if (!cancelPressed) {
+      do {
+        isValidInfo = true;
+        response = window.prompt("What is the Last Name of the Employee?");
+        if (response === '') {
+          isValidInfo = false;
+          response = window.alert("The string you entered is NOT valid.  Please try again.");
+        }
+        else if (response === null) {
+          cancelPressed = true;
+          window.alert(`Employee will be entered as ${firstName} ${lastName} with a $${salary} annual salary.`);
+        }
+        else {
+          lastName = response;
+        } 
+        if (cancelPressed)
+          break;
+      }
+      while (!isValidInfo)
+    }
+    // Get the Employee's Salary from the user
+    if (!cancelPressed) {
+      do {
+        isValidInfo = true;
+        response = window.prompt("What is the Annual Salary of the Employee?");
+        if (response === '' || isNaN(response)) {
+          response = window.alert("The value you entered is NOT a valid number.\n$0.00 will be used as the Annual Salary for this employee.");
+        }
+        else if (response === null) {
+          cancelPressed = true;
+          window.alert(`Employee will be entered as ${firstName} ${lastName} with a $${salary} annual salary.`);
+        }
+        else {
+          salary = parseInt(response);
+        }
+        if (cancelPressed)
+          break;
+      }
+      while (!isValidInfo)
+    }
+    // Add new Employee to the employeesArray array
+    let newEmployee = {firstName: firstName, lastName: lastName, salary: salary};
+    employeesArray.push(newEmployee);
+    // Ask user if they want to enter another Employee
+    response = window.confirm("Do you want to add another Employee?");
+    if (response === false)
+      addMoreEmployees = false;
+  }
+  while (addMoreEmployees)  
+  // Return the employeesArray array
   return employeesArray;
-
-  let response = window.prompt("Select Rock(r), Paper(p) or Scissors(s):");
-  window.alert(`You chose an invalid entry.  Please try again.`);
-
-  // let addMoreEmployees = true;
-  // do {
-
-  // }
-  // while (addMoreEmployees)
 }
 
 // Display the average salary
 const displayAverageSalary = function(employeesArray) {
   let sumSalaries = 0;
   let avgSalary = 0;
+  let employeeString = 'employee(s)';
   // Loop through all employees to get the SUM of ALL salaries
   for (let i=0; i<employeesArray.length; i++) {
-    sumSalaries += employeesArray[i][2];
+    sumSalaries += employeesArray[i].salary;
   }
   // Calculate the Average Salary
-  if (employeesArray.length > 0)
-    avgSalary = (sumSalaries / employeesArray.length).toFixed(2);
+  avgSalary = sumSalaries / employeesArray.length;
+  if (employeesArray.length === 1)
+    employeeString = 'employee';
   // Log Average Salary to the Console
-  console.log(`Employee Average Salary: $${new Intl.NumberFormat('en-US').format(avgSalary)}.`)
+  console.log(`The average employee salary between our ${employeesArray.length} ${employeeString} is ${avgSalary.toLocaleString("en-US",{style:"currency",currency:"USD"})}.`)
 }
 
 // Select a random employee
 const getRandomEmployee = function(employeesArray) {
   let randomIndex = 0;
-  let randomEmpString = 'The Random Winning Employee is:  ';
-  let randomEmployee = '<No Employees Exist>.';
   // Get a Random number between 0 and the COUNT of Employees
-  if (employeesArray.length > 0) {
-    randomIndex = Math.floor(Math.random()*employeesArray.length);
-    randomEmployee = employeesArray[randomIndex][0] + ' ' + employeesArray[randomIndex][1] + '.';
-  }
+  randomIndex = Math.floor(Math.random()*employeesArray.length);
   // Log Random Employee to the Console
-  console.log(`${randomEmpString}${randomEmployee}`);
+  console.log(`Congratulations to ${employeesArray[randomIndex].firstName} ${employeesArray[randomIndex].lastName}, our random drawing winner!`);
 }
 
 /*
