@@ -16,6 +16,8 @@ const collectEmployees = function() {
   do {
     do {
       salary = 0;
+      firstName = '<FN_Blank>';
+      lastName = '<LN_Blank>';
       isValidInfo = true;
       response = window.prompt("What is the First Name of the Employee?");
       if (response === '') {
