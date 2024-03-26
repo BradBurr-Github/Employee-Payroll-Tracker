@@ -4,7 +4,7 @@ Employee Payroll Tracker
  
 ## Image of Our Website
  
-<img src="./assets/images/webpage.jpg" alt="Employee Payroll Tracker Website image"/>
+<img src="./assets/images/webpage.png" alt="Employee Payroll Tracker Website image"/>
  
 ## Visit Our Website
  
